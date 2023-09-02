@@ -4,18 +4,19 @@ import Checkbox from "./Checkbox";
 import Button from "./Button";
 import Radio from "./Radio";
 
-function UserForm() {
+function UserForm({ setScreen }) {
     const { register, formState, handleSubmit, watch } = useForm();
 
     return (
+
         <div className="bg-white rounded text-black py-8 px-7">
-            <form >
+            <form onSubmit={(e) => { e.preventDefault(); setScreen('otp') }} >
                 <span className="block mb-2 font-medium">Select crow reason :</span>
                 <div className="mb-4 px-2">
-                    <Radio label={"Car is being towed"}/>
-                    <Radio label={"Car is being towed"}/>
-                    <Radio label={"Car is being towed"}/>
-                    <Radio label={"Car is being towed"}/>
+                    <Radio label={"Car is being towed"} />
+                    <Radio label={"Car is being towed"} />
+                    <Radio label={"Car is being towed"} />
+                    <Radio label={"Car is being towed"} />
                 </div>
                 <Input {...register('desc', {
                     required: "Phone number can not be empty", validate: (number) => { }

@@ -10,7 +10,6 @@ const OTPAuth = () => {
     const { register: register1, formState: formState1, handleSubmit: handleSubmit1, watch: watch1 } = useForm();
     const { register: register2, formState: formState2, handleSubmit: handleSubmit2, watch: watch2 } = useForm();
     const [loading, setLoading] = useState(false);
-    const [disable, setDisable] = useState(true);
     const [confirmationResult, setConfirmationResult] = useState(null);
     const [status, setStatus] = useState('phone');
 
@@ -78,9 +77,9 @@ const OTPAuth = () => {
                         return regex.test(otp) || 'The OTP must conatain 6 digits';
                     }
                 })} maxLength={6} label="Enter OPT" error={formState2.errors?.otp?.message} placeholder="Enter 6-digit otp" />
-                <div className="grid grid-cols-1 grid-rows-2 gap-3">
-                    <Button type='submit' label="Verify" variant="btn-wide" disabled={disable} />
-                    <Button label="Edit Phone Number" variant="btn-wide btn-outline text-black" />
+                <div className="flex flex-col gap-5">
+                    <Button type='submit' label="Verify" variant="btn-wide" disabled={false} />
+                    <Button label="Edit Phone Number" onClick={()=>{setStatus('phone')}} variant="btn-wide btn-outline text-black" />
                 </div>
             </form>}
 

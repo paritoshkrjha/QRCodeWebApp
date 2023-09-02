@@ -2,7 +2,7 @@ import classNames from "classnames"
 
 function Button({variant, label, loading, disable, ...props}) {
     return (
-        <button className={classNames(`btn`,{
+        <button {...props} className={classNames(`btn`,{
             'btn-disabled' : disable,
             'loading loading-spinner' : loading,
          }, variant )}>
