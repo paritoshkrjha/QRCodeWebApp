@@ -10,9 +10,9 @@ export function pushNotification({ token, payload }) {
   })
 }
 
-export async function sendMessage(payload,userId) {
+export async function sendMessage(payload, userId) {
   let id = payload.key
-  const dbRef = ref(database, `messages/${id}`)
+  const dbRef = ref(database, `messages/${userId}`)
 
   const pushDbRef = push(dbRef)
 
@@ -27,5 +27,3 @@ export async function sendMessage(payload,userId) {
     throw new Error(e)
   }
 }
-
-
