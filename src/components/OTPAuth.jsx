@@ -11,7 +11,7 @@ import Stepper from "./Stepper";
 import { sendMessage } from "../controller/sender";
 import doneImg from '../assets/correct.png';
 
-const OTPAuth = ({ message }) => {
+const OTPAuth = ({ message, userId }) => {
     const { register: register1, formState: formState1, handleSubmit: handleSubmit1, watch: watch1 } = useForm()
     const { register: register2, formState: formState2, handleSubmit: handleSubmit2, watch: watch2 } = useForm()
     const [loading, setLoading] = useState(false)
@@ -41,7 +41,7 @@ const OTPAuth = ({ message }) => {
     const requestOTP = async (values) => {
         const contactValue = '+91' + values.contact;
         const timeStamp = new Date();
-        message.current = { ...message.current, contactValue, key: '0FK3vlS0WFOmvQ9KiuviNfHDBTj1',viewed : 'false', timeStamp: timeStamp }
+        message.current = { ...message.current, contactValue, key: '0FK3vlS0WFOmvQ9KiuviNfHDBTj1', viewed: 'false', timeStamp: timeStamp }
         console.log(message.current)
         try {
             await setUpRecaptcha(contactValue);
@@ -61,7 +61,7 @@ const OTPAuth = ({ message }) => {
             await confirmationResult.confirm(otpValue);
             toast.success("OTP successfully verified");
             setLoading(false);
-            await sendMessage(message.current);
+            await sendMessage(message.current, userId);
             setScreenStatus('successful')
         } catch (error) {
             toast.error("Invalid OTP. Try again.")

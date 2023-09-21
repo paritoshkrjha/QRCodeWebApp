@@ -4,6 +4,7 @@ import Button from "./Button";
 import Radio from "./Radio";
 import Stepper from "./Stepper";
 import Container from "./Container";
+import { getFCMToken } from "../controller/sender";
 
 
 
@@ -70,22 +71,22 @@ export default UserForm
 const radioOptions = [
     {
         label: 'Car is being towed.',
-        value: 'Car is being towed.'
+        value: 'TOWED'
     },
     {
-        label: 'The car is in no paking.',
-        value: 'The car is in no paking.'
+        label: 'The car is in no parking.',
+        value: 'NO_PARKING'
     },
     {
         label: 'There is a baby or pet in car.',
-        value: 'There is a baby or pet in car.'
+        value: 'SOMEONE_INSIDE'
     },
     {
         label: 'Something went wrong with the car.',
-        value: 'Something went wrong with the car.'
+        value: 'SOMETHING_WRONG'
     },
     {
         label: 'Other.',
-        value: 'Other.'
+        value: 'OTHER'
     }
 ]

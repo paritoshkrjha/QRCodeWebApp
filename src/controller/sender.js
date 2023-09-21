@@ -1,6 +1,7 @@
 import { ref, set, push } from 'firebase/database'
-import { database } from '../firebase'
+import { database, store } from '../firebase'
 import axios from 'axios'
+import { doc, getDoc } from 'firebase/firestore'
 
 export function pushNotification({ token, payload }) {
   return axios.post('https://qr-fcm.onrender.com/send-notification', {
@@ -9,7 +10,7 @@ export function pushNotification({ token, payload }) {
   })
 }
 
-export async function sendMessage(payload) {
+export async function sendMessage(payload,userId) {
   let id = payload.key
   const dbRef = ref(database, `messages/${id}`)
 
@@ -17,10 +18,14 @@ export async function sendMessage(payload) {
 
   try {
     await set(pushDbRef, payload)
-    const token =
-      'ddhHWP68RruhKy4vZvSbpK:APA91bHDOPLvMq_vNAkpwS8QTQdQ-66pUvMPgNT8trDB_z-FHse7KKnKbAivqQFMPE2BNltwkqxvnLS7LFR17bWpusCkRvcmgx0v3qKRH8B29524MccrXEOOYcVEdJTV-j5UdjE4NIeB'
+    const docRef = doc(store, 'users', userId)
+    const docSnap = await getDoc(docRef)
+    const userData = docSnap.data()
+    const token = userData.fcmToken
     await pushNotification({ payload, token })
   } catch (e) {
     throw new Error(e)
   }
 }
+
+
