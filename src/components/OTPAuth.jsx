@@ -41,7 +41,7 @@ const OTPAuth = ({ message, userId }) => {
     const requestOTP = async (values) => {
         const contactValue = '+91' + values.contact;
         const timeStamp = new Date();
-        message.current = { ...message.current, contactValue, key: '0FK3vlS0WFOmvQ9KiuviNfHDBTj1', viewed: 'false', timeStamp: timeStamp }
+        message.current = { ...message.current, contactValue, key: userId, viewed: 'false', timeStamp: timeStamp }
         console.log(message.current)
         try {
             await setUpRecaptcha(contactValue);
