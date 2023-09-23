@@ -1,6 +1,6 @@
-function Stepper({props}) {
+function Stepper({ props }) {
   return (
-    <ul className="steps my-5">
+    <ul className="steps my-5 text-xs">
       <li data-content="?" className="step step-primary">
         Basic Details
       </li>
