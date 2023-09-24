@@ -11,12 +11,14 @@ export function pushNotification({ token, payload }) {
 }
 
 export async function sendMessage(payload, userId) {
+  
   let id = payload.key
   const dbRef = ref(database, `messages/${userId}`)
 
   const pushDbRef = push(dbRef)
 
   try {
+    console.log(payload)
     await set(pushDbRef, payload)
     const docRef = doc(store, 'users', userId)
     const docSnap = await getDoc(docRef)

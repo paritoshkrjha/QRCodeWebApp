@@ -1,3 +1,4 @@
+import { serverTimestamp } from "firebase/database";
 import Button from "./Button";
 import Input from "./Input";
 import { useForm } from "react-hook-form";
@@ -8,8 +9,7 @@ function ContactForm({ message, setScreen, userId, recaptchaCallback, loading })
 
     const requestOTP = async (values) => {
         const contactValue = '+91' + values.contact;
-        const timeStamp = new Date();
-        message.current = { ...message.current, contactValue, key: userId, viewed: 'false', timeStamp: timeStamp }
+        message.current = { ...message.current, contactValue, key: userId, viewed: 'false', time : serverTimestamp()  }
         try {
             await recaptchaCallback(contactValue);
             toast.success("OTP sent successfully")
