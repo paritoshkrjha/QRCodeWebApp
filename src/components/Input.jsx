@@ -11,7 +11,7 @@ const Input = forwardRef(
             name={name}
             ref={ref}
             {...props}
-            className={classNames("input input-bordered w-full max-w-xs bg-gray-50 border-2 border-gray-200 focus:border-gray-500 text-black autofill:bg-transparent", {
+            className={classNames("input input-bordered w-full bg-gray-50 border-2 border-gray-200 focus:border-gray-500 text-black autofill:bg-transparent", {
                 "text-black disabled:bg-gray-50" : disable,
             })}
             disabled={disable}
