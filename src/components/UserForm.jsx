@@ -4,7 +4,8 @@ import Button from "./Button";
 import Radio from "./Radio";
 
 
-function UserForm({ setScreen, message , userId}) {
+
+function UserForm({ setScreen, message, userId }) {
     const { register, formState, handleSubmit, control } = useForm();
 
     const submitHandler = (values) => {
