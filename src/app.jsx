@@ -1,6 +1,8 @@
 import { Toaster } from "react-hot-toast";
 import UserForm from "./components/UserForm";
 import { useEffect, useRef, useState } from "preact/hooks";
+import Router, { Route } from 'preact-router';
+
 import OTPAuth from "./components/OTPAuth";
 import Container from "./components/Container";
 import Stepper from "./components/Stepper";
@@ -9,6 +11,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "./firebase"
 import { sendMessage } from "./controller/sender";
 import Success from "./components/Success";
+import Home from "./pages/home";
 
 
 const Logo = () => {
@@ -37,6 +40,7 @@ export function App() {
       setInvalidUserId(true)
     }
     else {
+      console.log('Testing');
       setUserId(userId)
     }
   }, [])
@@ -62,7 +66,7 @@ export function App() {
   async function phoneNumberVerfier(otpValue) {
     setLoading(true)
     try {
-      console.log('confirmationResult ' , confirmationResult);
+      console.log('confirmationResult ', confirmationResult);
       console.log('otp', otpValue)
       await confirmationResult.confirm(otpValue);
       setCurrScreen('successful')
@@ -71,7 +75,7 @@ export function App() {
     catch (err) {
       console.log(err)
       throw new Error(err)
-    
+
     }
     finally {
       setLoading(false)
@@ -80,10 +84,12 @@ export function App() {
 
 
   return (
+    <Router>
     <div className=" min-h-screen bg-[#f5f5f5] flex  justify-center items-center px-5 py-5">
       <div className="h-max bg-[#f5f5f5] flex flex-col justify-center items-center sm:p-20">
+        <Route component={<Home/>} path="/abc" />
         <Logo />
-        <Container>
+        <Container >
           {currScreen != 'successful' && <Stepper getActiveIndex={() => {
             switch (currScreen) {
               case 'userform': return 0;
@@ -91,7 +97,7 @@ export function App() {
               case 'otp': return 2;
             }
           }
-          } />}
+        } />}
           {
             currScreen == 'userform' && <UserForm setScreen={setCurrScreen} message={message} />
           }
@@ -102,12 +108,14 @@ export function App() {
             currScreen == 'otp' && <OTPAuth setScreen={setCurrScreen} loading={loading} phoneNumberVerfier={phoneNumberVerfier} />
           }
           {
-            currScreen == 'successful' && <Success/>
+            currScreen == 'successful' && <Success />
           }
         </Container>
       </div>
       <Toaster />
     </div>
+          </Router>
+
   );
 }
 
